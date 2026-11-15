@@ -70,7 +70,7 @@ def best_split(features, labels, feature_indices, criterion='entropy'):
 def should_stop(labels, depth, max_depth=10, min_samples_split=2):
     """Return True if this node should become a leaf instead of splitting further."""
     # TODO: decide whether to stop growing based on purity, depth, and size...
-    return len(np.unique(labels)) == 1 or depth >= max_depth or len(labels) < min_samples_split
+    return np.unique(labels).shape[0] == 1 or depth >= max_depth or labels.shape[0] < min_samples_split
 
 # Step 6 - leaf_prediction
 def leaf_prediction(labels):
