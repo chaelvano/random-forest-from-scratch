@@ -19,8 +19,12 @@ def impurity(labels, criterion='gini'):
     elif criterion == 'entropy':
         return -np.sum(probs * np.log2(probs))
 
-# Step 2 - split_dataset (not yet solved)
-# TODO: implement
+# Step 2 - split_dataset
+def split_dataset(features, labels, feature_index, threshold):
+    # TODO: partition rows into left (feature <= threshold) and right (feature > threshold)
+    mask = features[:, feature_index] > threshold
+
+    return (features[~mask], labels[~mask], features[mask], labels[mask])
 
 # Step 3 - split_score (not yet solved)
 # TODO: implement
