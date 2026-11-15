@@ -65,7 +65,7 @@ def best_split(features, labels, feature_indices, criterion='entropy'):
     return best
 
 # Step 5 - should_stop
-def should_stop(labels, depth, max_depth, min_samples_split):
+def should_stop(labels, depth, max_depth=10, min_samples_split=2):
     """Return True if this node should become a leaf instead of splitting further."""
     # TODO: decide whether to stop growing based on purity, depth, and size...
     return len(np.unique(labels)) == 1 or depth >= max_depth or len(labels) < min_samples_split
