@@ -169,8 +169,10 @@ def combine_predictions(tree_predictions):
     # TODO: aggregate the per-tree predictions of an ensemble into one prediction per example.
     return np.array([np.bincount(tree_predictions[:, col]).argmax() for col in range(tree_predictions.shape[1])])
 
-# Step 14 - predict_forest (not yet solved)
-# TODO: implement
+# Step 14 - predict_forest
+def predict_forest(forest, features):
+    # TODO: predict classes for a dataset using the whole trained forest.
+    return combine_predictions(np.array([predict_tree(tree['tree'], features) for tree in forest]))
 
 # Step 15 - accuracy
 def accuracy(predictions, labels):
