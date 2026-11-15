@@ -31,8 +31,38 @@ def split_score(parent_labels, left_labels, right_labels, criterion='entropy'):
     # TODO: return a score where higher means the children are purer than the parent.    
     return impurity(parent_labels, criterion) - (len(left_labels) * impurity(left_labels, criterion) + len(right_labels) * impurity(right_labels, criterion)) / len(parent_labels)
 
-# Step 4 - best_split (not yet solved)
-# TODO: implement
+# Step 4 - best_split
+import numpy as np
+
+def best_split(features, labels, feature_indices, criterion='entropy'):
+    # TODO: search feature_indices for the (feature, threshold) that best improves purity.
+    best = {
+        'feature_index': None,
+        'threshold': None,
+        'score': 0.0
+    }
+    
+    for feature_index in feature_indices:
+        column = features[:, feature_index]
+        values = np.unique(column)
+
+        if len(values) < 2:
+            continue
+
+        thresholds = (values[:-1] + values[1:]) / 2
+
+        for threshold in thresholds:
+            left_features, left_labels, right_features, right_labels = split_dataset(features, labels, feature_index, threshold)
+            score = split_score(labels, left_labels, right_labels, criterion)
+
+            if score > best['score']:
+                best = {
+                    'feature_index': feature_index,
+                    'threshold': threshold,
+                    'score': score
+                }
+
+    return best
 
 # Step 5 - should_stop (not yet solved)
 # TODO: implement
