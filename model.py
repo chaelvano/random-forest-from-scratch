@@ -133,7 +133,7 @@ def predict_tree(tree, features):
 # Step 10 - bootstrap_sample
 def bootstrap_sample(features, labels, rng):
     # TODO: draw a bootstrap sample of rows (with replacement) using rng.
-    n = len(features)
+    n = features.shape[0]
     indices = rng.integers(0, n, size=n)
 
     return (features[indices], labels[indices])
