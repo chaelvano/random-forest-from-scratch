@@ -29,7 +29,7 @@ def split_dataset(features, labels, feature_index, threshold):
 # Step 3 - split_score
 def split_score(parent_labels, left_labels, right_labels, criterion='entropy'):
     # TODO: return a score where higher means the children are purer than the parent.    
-    return impurity(parent_labels, criterion) - (len(left_labels) * impurity(left_labels, criterion) + len(right_labels) * impurity(right_labels, criterion)) / len(parent_labels)
+    return impurity(parent_labels, criterion) - (left_labels.shape[0] * impurity(left_labels, criterion) + right_labels.shape[0] * impurity(right_labels, criterion)) / parent_labels.shape[0]
 
 # Step 4 - best_split
 def best_split(features, labels, feature_indices, criterion='entropy'):
@@ -164,8 +164,10 @@ def train_forest(features, labels, num_trees=10, max_depth=10, min_samples_split
 
     return forest
 
-# Step 13 - combine_predictions (not yet solved)
-# TODO: implement
+# Step 13 - combine_predictions
+def combine_predictions(tree_predictions):
+    # TODO: aggregate the per-tree predictions of an ensemble into one prediction per example.
+    return np.array([np.bincount(tree_predictions[:, col]).argmax() for col in range(len(tree_predictions[0]))])
 
 # Step 14 - predict_forest (not yet solved)
 # TODO: implement
