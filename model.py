@@ -81,8 +81,34 @@ def leaf_prediction(labels):
 
     return int(values[np.argmax(counts)])
 
-# Step 7 - build_tree (not yet solved)
-# TODO: implement
+# Step 7 - build_tree
+def build_tree(features, labels, max_depth=10, min_samples_split=2, feature_subset=None, depth=0, criterion='entropy'):
+    # TODO: recursively grow a decision tree, returning a nested dict of leaf/internal nodes.
+    if should_stop(labels, depth, max_depth, min_samples_split):
+        return {
+            'leaf': True,
+            'prediction': leaf_prediction(labels)
+        }
+    else:
+        feature_indices = np.arange(features.shape[1]) if feature_subset is None else feature_subset
+        
+        best = best_split(features, labels, feature_indices, criterion)
+
+        if best['feature_index'] is None:
+            return {
+                'leaf': True,
+                'prediction': leaf_prediction(labels)
+            }
+
+        feature_index, threshold, left_features, left_labels, right_features, right_labels = best['feature_index'], best['threshold'], best['left_features'], best['left_labels'], best['right_features'], best['right_labels']
+
+        return {
+            'leaf': False,
+            'feature_index': feature_index,
+            'threshold': threshold,
+            'left': build_tree(left_features, left_labels, max_depth, min_samples_split, feature_subset, depth + 1, criterion),
+            'right': build_tree(right_features, right_labels, max_depth, min_samples_split, feature_subset, depth + 1, criterion)
+        }
 
 # Step 8 - predict_example_tree (not yet solved)
 # TODO: implement
