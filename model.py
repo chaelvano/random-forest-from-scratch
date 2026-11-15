@@ -128,7 +128,7 @@ def predict_tree(tree, features):
     returns: np.ndarray of shape (n,) with integer class labels
     """
     # TODO: return predicted class for each row of features using the fitted tree.
-    return np.array([predict_example_tree(tree, sample) for sample in features])
+    return np.array([predict_example_tree(tree, example) for example in features])
 
 # Step 10 - bootstrap_sample
 def bootstrap_sample(features, labels, rng):
