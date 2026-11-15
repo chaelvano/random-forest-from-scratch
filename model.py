@@ -145,8 +145,26 @@ def feature_subset(num_features, num_to_pick, rng):
     # TODO: return num_to_pick distinct random feature indices from range(num_features) using rng.
     return rng.choice(num_features, size=num_to_pick, replace=False)
 
-# Step 12 - train_forest (not yet solved)
-# TODO: implement
+# Step 12 - train_forest
+def train_forest(features, labels, num_trees=10, max_depth=10, min_samples_split=2, num_features_per_split=None, criterion='entropy', random_state=0):
+    # TODO: grow num_trees decision trees on bootstrap samples with random feature subsets.
+    forest = []
+    rng = np.random.default_rng(random_state)
+    d = len(features[0])
+    
+    if num_features_per_split is None:
+        num_features_per_split = np.maximum(1, int(np.round(np.sqrt(d))))
+
+    for _ in range(num_trees):
+        bootstrap_features, bootstrap_labels = bootstrap_sample(features, labels, rng)
+        feature_indices = feature_subset(d, num_features_per_split, rng)
+
+        forest.append({
+            'tree': build_tree(bootstrap_features, bootstrap_labels, max_depth=max_depth, min_samples_split=min_samples_split, feature_subset=feature_indices, criterion=criterion),
+            'feature_indices': feature_indices
+        })
+
+    return forest
 
 # Step 13 - combine_predictions (not yet solved)
 # TODO: implement
