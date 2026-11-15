@@ -88,7 +88,7 @@ def build_tree(features, labels, max_depth=10, min_samples_split=2, feature_subs
             'prediction': leaf_prediction(labels)
         }
     else:
-        feature_indices = np.arange(len(features[0])) if feature_subset is None else feature_subset
+        feature_indices = np.arange(features.shape[1]) if feature_subset is None else feature_subset
         
         best = best_split(features, labels, feature_indices, criterion)
 
