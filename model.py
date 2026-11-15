@@ -148,7 +148,7 @@ def train_forest(features, labels, num_trees=10, max_depth=10, min_samples_split
     # TODO: grow num_trees decision trees on bootstrap samples with random feature subsets.
     forest = []
     rng = np.random.default_rng(random_state)
-    d = len(features[0])
+    d = features.shape[1]
     
     if num_features_per_split is None:
         num_features_per_split = np.maximum(1, int(np.round(np.sqrt(d))))
