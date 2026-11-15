@@ -44,7 +44,7 @@ def best_split(features, labels, feature_indices, criterion='entropy'):
         column = features[:, feature_index]
         values = np.unique(column)
 
-        if len(values) < 2:
+        if values.shape[0] < 2:
             continue
 
         thresholds = (values[:-1] + values[1:]) / 2
