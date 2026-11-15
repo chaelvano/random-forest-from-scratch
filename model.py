@@ -52,14 +52,18 @@ def best_split(features, labels, feature_indices, criterion='entropy'):
         thresholds = (values[:-1] + values[1:]) / 2
 
         for threshold in thresholds:
-            _, left_labels, _, right_labels = split_dataset(features, labels, feature_index, threshold)
+            left_features, left_labels, right_features, right_labels = split_dataset(features, labels, feature_index, threshold)
             score = split_score(labels, left_labels, right_labels, criterion)
 
             if score > best['score']:
                 best = {
                     'feature_index': feature_index,
                     'threshold': threshold,
-                    'score': score
+                    'score': score,
+                    'left_features': left_features,
+                    'left_labels': left_labels,
+                    'right_features': right_features,
+                    'right_labels': right_labels
                 }
 
     return best
