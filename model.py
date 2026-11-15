@@ -32,8 +32,6 @@ def split_score(parent_labels, left_labels, right_labels, criterion='entropy'):
     return impurity(parent_labels, criterion) - (len(left_labels) * impurity(left_labels, criterion) + len(right_labels) * impurity(right_labels, criterion)) / len(parent_labels)
 
 # Step 4 - best_split
-import numpy as np
-
 def best_split(features, labels, feature_indices, criterion='entropy'):
     # TODO: search feature_indices for the (feature, threshold) that best improves purity.
     best = {
